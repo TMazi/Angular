@@ -1,0 +1,122 @@
+<div class="optionsContainer">
+    <button class="btn btn-success child" data-toggle="modal" data-target="#newUser">Add new user</button>
+</div>
+<div>
+    <ul class="div-table">
+        <li class="first div-table-row">
+            <div (click)='sort(0)' class="div-table-col">
+                Name
+                <span id="sortName" class="glyphicon glyphicon-triangle-bottom"></span>&nbsp;
+            </div>
+            <div (click)='sort(1)' class="div-table-col">
+                Birthday
+                <span id="sortDate" class="glyphicon glyphicon-triangle-bottom"></span>&nbsp;
+            </div>
+            <div class="div-table-col">
+                Phone
+            </div>
+            <div class="div-table-col">
+                E-mail
+            </div>
+            <div class="div-table-col">
+                Delete
+            </div>
+            <div class="div-table-col">
+                Wishlist
+            </div>
+        </li>
+        <li *ngFor="let user of users" class="div-table-row">
+            <div class="div-table-col">
+                {{user.name}}
+            </div>
+            <div class="div-table-col">
+                {{user.birthDate}}
+            </div>
+            <div class="div-table-col">
+                {{user.phoneNumber}}
+            </div>
+            <div class="div-table-col">
+                {{user.email}}
+            </div>
+            <div class="div-table-col">
+                <button (click)="deleteUser(user.id)" type="button" class="btn btn-xs btn-danger">
+                <span class="glyphicon glyphicon-trash"></span>&nbsp;
+            </button>
+            </div>
+            <div class="div-table-col">
+                <button (click)="openWishList(user.id)" type="button" class="btn btn-xs btn-success">
+                    <span class="glyphicon glyphicon-heart"></span>&nbsp;
+                </button>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div id="newUser" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add new User</h3>
+            </div>
+            <form #userForm="ngForm">
+                <div class="modal-body">
+                    <div class="newItemInputs">
+                        <input type="text" class="form-control" placeholder="Name" name="name" ngModel required minlength="4" />
+                        <input type="email" class="form-control" placeholder="E-mail" name="email" ngModel required />
+                        <input type="number" class="form-control" placeholder="Phone number" name="phone" ngModel required />
+                        <label for="date">BirthDate</label>
+                        <input id="date" type="date" class="form-control" data-date-format="mm/dd/yyyy" name="birthDate" ngModel required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!userForm.valid" (click)="addNewUser(userForm)">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="deleteUser" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Are you sure you want to delete this user?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="deleteUserButton" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="userWishlist" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Users wishlist</h3>
+            </div>
+            <div class="modal-body">
+                <div class="small-div-table">
+                    <div *ngFor='let item of userItem' class="div-table-row">
+                        <div class="small div-table-col">
+                            {{item.name}}
+                        </div>
+                        <div class="small div-table-col">
+                            {{item.dateOfFound}}
+                        </div>
+                        <div class="small div-table-col">
+                            {{item.category}}
+                        </div>
+                        <div class="small div-table-col">
+                            <img class="smallImage" src="{{item.photoUrl}}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

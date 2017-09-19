@@ -1,0 +1,207 @@
+<div class="optionsContainer">
+    <button class="btn btn-primary child" (click)='sortByDate()'>Sort items by date</button>
+    <button class="btn btn-primary child" (click)='sortByName()'>Sort items by name</button>
+    <button class="btn btn-primary child" (click)='showHistory()'>Show history</button>
+    <button class="btn btn-success child" data-toggle="modal" data-target="#myModal">Add new Item</button>
+    <label for="categories" style="color:white">Filter by category</label>
+    <select id="categories" class="form-control child" [(ngModel)]="item" (change)="selectedCategory(item)">
+                <option selected>All</option>                
+                <option *ngFor="let category of categories">{{category}}</option>
+        </select>
+</div>
+<div class="grid">
+    <div class="row">
+        <div *ngFor="let item of items" class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4> {{item.name}}</h4>
+                </div>
+                <div class="panel-body" (click)="openDetails(item)">
+                    <div class="itemContainer">
+                        <ul>
+                            <li>{{item.description}}</li>
+                            <li>
+                                <img class="icon" src='resources/images/color.png' /> {{item.color}}
+                            </li>
+                            <li>
+                                <img class="icon" src='resources/images/weight.png' /> {{item.weight}}kg
+                            </li>
+                            <li>
+                                <img class="icon" src='resources/images/calendar.png' /> {{item.dateOfFound}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class=itemPhoto>
+                        <img src="{{item.photoUrl}}" class='image'>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-info" (click)="backToUser(item)">Return to user</button>
+                    <button class="btn btn-info" (click)="backToOwner(item)">Return to owner</button>
+                    <button class="btn btn-info" (click)="assignNewPerson(item)">Assign new person</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add new Item</h3>
+            </div>
+            <form #itemForm="ngForm">
+                <div class="modal-body">
+                    <div class="newItemInputs">
+                        <input type="text" class="form-control" placeholder="Name" name="itemName" ngModel required/>
+                        <input type="text" class="form-control" placeholder="Color" name="color" ngModel required />
+                        <input type="text" class="form-control" placeholder="Category" name="category" ngModel required />
+                        <input type="number" step="any" class="form-control" placeholder="Weight" name="weight" ngModel min="0" required />
+                        <input type="text" class="form-control" placeholder="Photo URL" name="photo" ngModel />
+                        <label for="date">Date of lost</label>
+                        <input id="date" type="date" class="form-control" data-date-format="mm/dd/yyyy" name="date" ngModel required>
+                        <textarea name="description" placeholder="Item description..." class="form-control" rows="5" name="description" ngModel></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" (click)="closeModal(itemForm)">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!itemForm.valid" (click)=" addNewItem(itemForm) ">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="confirmBack" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Are you sure you want to give it back?</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="confirm" type="button" class="btn btn-success">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="confirmBackUser" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Are you sure you want to give it back?</h3>
+            </div>
+            <div class="modal-body">
+                <div style="maring:auto; width:70%">
+                    <fieldset class="rating">
+                        <input type="radio" id="star5" name="rating" value="5" /><label class="full" for="star5"></label>
+                        <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half"></label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label class="full" for="star4"></label>
+                        <input type="radio" id="star3half" name="rating" value="3 and a half" /><label class="half" for="star3half"></label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label class="full" for="star3"></label>
+                        <input type="radio" id="star2half" name="rating" value="2 and a half" /><label class="half" for="star2half"></label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label class="full" for="star2"></label>
+                        <input type="radio" id="star1half" name="rating" value="1 and a half" /><label class="half" for="star1half"></label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label class="full" for="star1"></label>
+                        <input type="radio" id="starhalf" name="rating" value="half" /><label class="half" for="starhalf"></label>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="confirmUser" type="button" data-dismiss="modal" class="btn btn-success">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="detailsModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content details">
+            <img id="image" src="" class='bigimage'>
+            <div class="wishlist">
+                People, who want that:
+                <ul id="people">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="errorModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">You can't! It has to be at least month after found</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="assignUserModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content details">
+            <div class="modal-header">
+                <h3 class="modal-title">Choose user to assign</h3>
+            </div>
+            <div class="modal-body">
+                <select id="users" class="form-control" [(ngModel)]="user" name="nUser">
+                            <option selected></option>                
+                            <option *ngFor="let user of users" [ngValue]="user">{{user.id}} | {{user.name}}</option>
+                    </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="assignUser" type="button" class="btn btn-success">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="history" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content details">
+            <div class="modal-header">
+                <h3 class="modal-title">Returned items</h3>
+            </div>
+            <div class="modal-body">
+                <div class="myCostam">
+                    <div class="first div-table-row ">
+                        <div class="div-table-col">
+                            Name
+                        </div>
+                        <div class="div-table-col">
+                            Found date
+                        </div>
+                        <div class="div-table-col">
+                            Return date
+                        </div>
+                        <div class="div-table-col">
+                            Category
+                        </div>
+                    </div>
+                    <div *ngFor="let item of historyItems" class="div-table-row">
+                        <div class="div-table-col">
+                            {{item.name}}
+                        </div>
+                        <div class="div-table-col">
+                            {{item.dateOfFound}}
+                        </div>
+                        <div class="div-table-col">
+                            {{item.returnDate}}
+                        </div>
+                        <div class="div-table-col">
+                            {{item.category}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

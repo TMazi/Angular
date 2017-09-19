@@ -1,0 +1,80 @@
+<div class="optionsContainer">
+    <button class="btn btn-primary child" (click)='sortByDate()'>Sort items by date</button>
+    <button class="btn btn-primary child" (click)='sortByName()'>Sort items by name</button>
+    <button class="btn btn-success child" data-toggle="modal" data-target="#myModal">Add new Item</button>
+    <label for="categories" style="color:white">Filter by category</label>
+    <select id="categories" class="form-control child" [(ngModel)]="item" (change)="selectedCategory(item)">
+                <option selected>All</option>                
+                <option *ngFor="let category of categories">{{category}}</option>
+        </select>
+</div>
+<div class="grid">
+    <div class="row">
+        <div *ngFor="let item of items" class="col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4> {{item.name}}</h4>
+                </div>
+                <div class="panel-body" (click)="openDetails(item)">
+                    <div class="itemContainer">
+                        <ul>
+                            <li>{{item.description}}</li>
+                            <li>
+                                <img class="icon" src='resources/images/color.png' /> {{item.color}}
+                            </li>
+                            <li>
+                                <img class="icon" src='resources/images/weight.png' /> {{item.weight}}kg
+                            </li>
+                            <li>
+                                <img class="icon" src='resources/images/calendar.png' /> {{item.dateOfFound}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class=itemPhoto>
+                        <img src="{{item.photoUrl}}" class='image'>
+                    </div>
+                    <div class="panel-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add new Item</h3>
+            </div>
+            <form #itemForm="ngForm">
+                <div class="modal-body">
+                    <div class="newItemInputs">
+                        <input type="text" class="form-control" placeholder="Name" name="itemName" ngModel required/>
+                        <input type="text" class="form-control" placeholder="Color" name="color" ngModel required />
+                        <input type="text" class="form-control" placeholder="Category" name="category" ngModel required />
+                        <input type="number" step="any" class="form-control" placeholder="Weight" name="weight" ngModel min="0" required />
+                        <input type="text" class="form-control" placeholder="Photo URL" name="photo" ngModel />
+                        <label for="date">Date of lost</label>
+                        <input id="date" type="date" class="form-control" data-date-format="mm/dd/yyyy" name="date" ngModel required>
+                        <textarea name="description" placeholder="Item description..." class="form-control" rows="5" name="description" ngModel></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-default" (click)="closeModal(itemForm)">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!itemForm.valid" (click)=" addNewItem(itemForm) ">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="details" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        </div>
+        <div class="modal-body">
+            <img class="huge-image" id="bigImage" src=''>
+        </div>
+    </div>
+</div>
