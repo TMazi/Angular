@@ -159,7 +159,8 @@ opacity: 0.8;
 }
 
 .details {
-    background: rgba(234, 230, 230, 1);        
+    background: rgba(234, 230, 230, 1);       
+    padding: 20px; 
 }
 
 input::-webkit-outer-spin-button,
@@ -264,6 +265,12 @@ input::-webkit-inner-spin-button {
           height: 25px;
       }
 
+      .huge {
+            width: 500px;
+            height: 500px;
+            overflow: hidden;
+      }
+
       .huge-image {
           width: 400px;
           height: 400px;
@@ -308,4 +315,15 @@ input::-webkit-inner-spin-button {
       .rating > input:checked ~ label:hover,
       .rating > label:hover ~ input:checked ~ label, /* lighten current selection */
       .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+      #people > li {
+            float: left;
+            width: 95%;
+      }
+
+      #people {
+          padding: 5px;
+          max-height: 250px;
+          overflow: auto;
+      }
     

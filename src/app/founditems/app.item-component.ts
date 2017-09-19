@@ -77,7 +77,8 @@ export class ItemComponent {
         $('#image').attr('src', item.photoUrl);
         this.wishService.getWishingUsers(item).subscribe(users => {
             for (let i = 0; i < users.length; i++) {
-                $('#people').append('<li>' + users[i].name + '</li>');
+                $('#people').append('<li><img class="icon" src="resources/images/yes.png" />'
+                    + users[i].name + '</li>');
             }
         });
         $('#detailsModal').modal('show')
