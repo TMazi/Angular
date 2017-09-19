@@ -17,6 +17,7 @@ export class UserComponent {
     constructor(private userService: UserService, private wishService: WishService) { }
 
     users: User[];
+    allUsers: User[];
     userItem: Item[];
     namesorting = 1;
     datesorting = 1;
@@ -28,6 +29,7 @@ export class UserComponent {
     public displayUsers() {
         this.userService.getUsers().subscribe(users => {
             this.users = users;
+            this.allUsers = users;            
         });
     }
 
@@ -37,6 +39,15 @@ export class UserComponent {
         this.users.push(user);
         userForm.reset();
         $('#newUser').modal('hide');
+    }
+
+    public filter(text: string) {
+        this.users = this.allUsers;
+        if(text != undefined && text.length > 0) {
+            this.users = this.users.filter(user => {
+                return user.name.indexOf(text) >= 0 || user.email.indexOf(text) >=0;
+            })
+        }
     }
 
     public deleteUser(userId: Number) {

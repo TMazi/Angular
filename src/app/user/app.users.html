@@ -1,5 +1,6 @@
 <div class="optionsContainer">
     <button class="btn btn-success child" data-toggle="modal" data-target="#newUser">Add new user</button>
+    <input type=text class='form-control' style="float:left;width:150px;"  [(ngModel)]="text" placeholder="Search for user..." (keyup)="filter(text)"/>
 </div>
 <div>
     <ul class="div-table">

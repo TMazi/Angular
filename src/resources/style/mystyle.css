@@ -177,9 +177,9 @@ input::-webkit-inner-spin-button {
     background-color: #eee;   
     padding: 15px;      
     border-radius: 10px;
-    -webkit-box-shadow: 11px 10px 35px -5px rgb(99, 155, 103);
-    -moz-box-shadow: 11px 10px 35px -5px rgba(99, 155, 103, 1);
-    box-shadow: 11px 10px 35px -5px rgba(99, 155, 103, 1);
+    -webkit-box-shadow: 11px 10px 35px -5px rgb(211, 212, 196);
+    -moz-box-shadow: 11px 10px 35px -5px rgba(211, 212, 196, 1);
+    box-shadow: 11px 10px 35px -5px rgba(211, 212, 196, 1);
   }
 
 ::-webkit-scrollbar-track
